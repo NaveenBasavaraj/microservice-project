@@ -4,9 +4,9 @@ These are general endpoints like health checks and welcome messages.
 """
 
 from fastapi import APIRouter
+from app.config import settings  # ← Import settings!
 
-# Create a router - this is like a mini FastAPI app
-# We use routers to organize related endpoints
+# Create a router
 router = APIRouter()
 
 
@@ -17,8 +17,8 @@ def read_root():
     Returns basic information about the API.
     """
     return {
-        "message": "Welcome to ShortLink API! 🚀",
-        "version": "0.1.0",
+        "message": f"Welcome to {settings.app_name}! 🚀",  # ← From config!
+        "version": settings.app_version,                    # ← From config!
         "docs": "/docs",
         "health": "/health"
     }
@@ -32,6 +32,7 @@ def health_check():
     """
     return {
         "status": "healthy",
-        "service": "ShortLink API",
-        "version": "0.1.0"
+        "service": settings.app_name,      # ← From config!
+        "version": settings.app_version,   # ← From config!
+        "debug": settings.debug            # ← From config!
     }
