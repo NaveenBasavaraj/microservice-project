@@ -9,6 +9,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.routes import root
 from app.config import settings  # ← Import our settings!
+from app.database import check_db_connection
 
 
 # Create the FastAPI application instance using config values
@@ -46,6 +47,10 @@ async def startup_event():
     print(f"📚 Documentation: http://127.0.0.1:8000/docs")
     if settings.debug:
         print(f"⚙️  Database: {settings.database_url[:30]}...")
+    if check_db_connection():
+        print("✅ Database connection successful")
+    else:
+        print("⚠️  Database connection failed (check Docker/PostgreSQL)")
 
 
 @app.on_event("shutdown")

@@ -29,10 +29,10 @@ class Settings(BaseSettings):
     api_v1_prefix: str = "/api/v1"
     
     # Database Settings
-    database_url: str
+    database_url: str = "postgresql+psycopg2://postgres:changeme@localhost:5432/shortlink_db"
     
     # Security Settings
-    secret_key: str
+    secret_key: str = "change-this-to-a-random-string"
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 30
     
